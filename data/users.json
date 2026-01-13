@@ -1,0 +1,24 @@
+{
+  "name": "users",
+  "columns": [
+    "id",
+    "name",
+    "email"
+  ],
+  "primary_key": "id",
+  "unique_keys": [
+    "email"
+  ],
+  "rows": [
+    {
+      "id": "1",
+      "name": "Flasky",
+      "email": "flasky@email.com"
+    },
+    {
+      "id": "100",
+      "name": "X",
+      "email": "x@example.com"
+    }
+  ]
+}
