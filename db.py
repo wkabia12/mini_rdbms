@@ -103,7 +103,7 @@ class Database:
             raise ValueError("Table already exists")
         self.tables[name] = Table(name, columns, pk, uniques)
 
-    def save(self, name):
+    def save(self, name, base_dir=None):
         if name not in self.tables:
             raise ValueError("Table does not exist")
         t = self.tables[name]
@@ -114,16 +114,19 @@ class Database:
             "unique_keys": t.unique_keys,
             "rows": t.rows,
         }
-        path = f"{DATA_DIR}/{name}.json"
+        base = base_dir or DATA_DIR
+        os.makedirs(base, exist_ok=True)
+        path = f"{base}/{name}.json"
         with open(path, "w") as f:
             json.dump(data, f, indent=2)
 
-    def save_all(self):
+    def save_all(self, base_dir=None):
         for name in list(self.tables.keys()):
-            self.save(name)
+            self.save(name, base_dir=base_dir)
 
-    def load(self, name):
-        path = f"{DATA_DIR}/{name}.json"
+    def load(self, name, base_dir=None):
+        base = base_dir or DATA_DIR
+        path = f"{base}/{name}.json"
         if not os.path.exists(path):
             raise ValueError("Table file does not exist")
         with open(path) as f:
@@ -135,12 +138,13 @@ class Database:
         t.rows = data["rows"]
         self.tables[name] = t
 
-    def drop_table(self, name):
+    def drop_table(self, name, base_dir=None):
         if name not in self.tables:
             raise ValueError("Table does not exist")
 
+        base = base_dir or DATA_DIR
         # Remove JSON file if it exists
-        path = f"{DATA_DIR}/{name}.json"
+        path = f"{base}/{name}.json"
         if os.path.exists(path):
             os.remove(path)
 

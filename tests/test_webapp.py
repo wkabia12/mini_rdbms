@@ -24,13 +24,13 @@ def test_webapp_post_and_duplicate(tmp_path, monkeypatch):
     client = webapp.app.test_client()
 
     # successful insert
-    rv = client.post('/', data={'id': '1', 'name': 'Alice', 'email': 'a@example.com'})
+    rv = client.post('/users', data={'id': '1', 'name': 'Alice', 'email': 'a@example.com'})
     assert rv.status_code in (302, 303)
 
     # duplicate email should return 400
-    rv = client.post('/', data={'id': '2', 'name': 'Bob', 'email': 'a@example.com'})
+    rv = client.post('/users', data={'id': '2', 'name': 'Bob', 'email': 'a@example.com'})
     assert rv.status_code == 400
 
     # get should show the user
-    rv = client.get('/')
+    rv = client.get('/users')
     assert 'Alice' in rv.get_data(as_text=True)
