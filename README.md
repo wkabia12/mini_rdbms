@@ -1,4 +1,4 @@
-# mini_rdbms ✅
+# mini_rdbms 
 
 A tiny, educational in-memory relational DB with a minimal SQL-like parser, a REPL, and a simple Flask web UI. Data is persisted as JSON files under the `data/` directory.
 
@@ -17,7 +17,7 @@ A tiny, educational in-memory relational DB with a minimal SQL-like parser, a RE
 
 ---
 
-## ⚙️ Setup
+##  Setup
 
 ```bash
 # create & activate a virtualenv (Linux/macOS)
